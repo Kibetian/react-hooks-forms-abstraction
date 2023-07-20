@@ -1,24 +1,41 @@
 import React, { useState } from "react";
 
 function Form() {
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Henry");
+  const [formData, setformData] = useState({
+        firstName: 'John',
+        lastName: 'Henry',
+        admin: false,
+      
+  })
 
-  function handleFirstNameChange(event) {
-    setFirstName(event.target.value);
+   
+function handlechange(event) {
+  const name = event.target.name;
+  let value = event.target.value;
+  if (event.target.type === 'checkbox') {
+    value = event.target.checked;
   }
 
-  function handleLastNameChange(event) {
-    setLastName(event.target.value);
-  }
+  setformData({
+    ...FormData,
+      [name]: value,
+    })
 
+}
+function handleSubmit(event) {
+  event.preventdefault();
+  console.log(formData);
+
+}
   return (
     <form>
-      <input type="text" onChange={handleFirstNameChange} value={firstName} />
-      <input type="text" onChange={handleLastNameChange} value={lastName} />
+      <input type="text" name="firstName" onChange={handlechange} value={formData.firstName} />
+      <input type="text" name="lastName" onChange={handlechange} value={formData.lastName} />
+      <input type="checkbox" name="admin" onChange={handlechange} checked={formData.admin}/>
       <button type="submit">Submit</button>
     </form>
   );
 }
+
 
 export default Form;
